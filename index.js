@@ -23,9 +23,9 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.listen(process.env.port || 4000, async () => {
+app.listen(process.env.PORT || 3000, async () => {
     try {
-        console.log(`Port listening on ${process.env.port || 4000}, server started`);
+        console.log(`Port listening on ${process.env.PORT || 3000}, server started`);
         await dbInitialize();
     } catch (error) {
         console.error('server starting error', error?.message);
