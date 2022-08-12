@@ -10,15 +10,5 @@ const dbInitialize = async () => {
     }
 }
 
-const dbConnectionMiddleware = async (req, res, next) => {
-    try {
-        console.log('dbConnectionMiddleware', Date.now());
-        await dbInitialize();
-        next();
-    } catch (error) {
-        console.error('dbConnectionMiddleware error, db connection error');
-    }
-}
 
-
-module.exports = { dbInitialize, dbConnectionMiddleware };
+module.exports = { dbInitialize };
