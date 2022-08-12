@@ -11,10 +11,10 @@ const videosScheme = new mongoose.Schema({
     type: { type: String },
     avatar: { type: String },
     thumbnail: { type: String },
-    isDeleted: { type: Boolean },
+    isDeleted: { type: Boolean, default: false },
     updatedOn: { type: String }
-});
+}, { timestamps: true });
 
 const videosModel = mongoose.model('Videos', videosScheme);
 
-module.exports = { videosModel };
+module.exports = { videosModel, videosScheme };
