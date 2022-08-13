@@ -42,7 +42,6 @@ const findAll = async ({ modelName, res, method }) => {
 const findItemById = async ({ modelName, res, type, value }) => {
     try {
         const model = await fetchModel(modelName);
-        console.log('model:', model)
         if (model) {
             const data = await model.findById({ [type]: value });
             return res.status(200).json(data);
