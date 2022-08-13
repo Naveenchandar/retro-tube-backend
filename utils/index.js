@@ -1,4 +1,14 @@
 const mongoose = require('mongoose');
+const {
+    logInfo,
+    logError,
+    error,
+    success,
+    httpPath,
+    warning,
+    logWithBg,
+    info
+} = require('./chalk-theme');
 
 const fetchModel = async (modelName) => {
     let isModelPresent;
@@ -134,5 +144,13 @@ module.exports = {
     removeItemById,
     createItem,
     updateItemById,
-    errorResponse
+    errorResponse,
+    logInfo,
+    logError,
+    error,
+    success,
+    httpPath,
+    warning,
+    logWithBg,
+    info
 };
