@@ -3,12 +3,13 @@ const app = express();
 const cors = require('cors');
 const chalk = require('chalk');
 const morgan = require('morgan');
+const jwt = require("jsonwebtoken");
 const { dbConnectionMiddleware } = require('./db');
-const { 
+const {
     errorLogger,
     errorResponder,
     errorPath
- } = require('./errors');
+} = require('./errors');
 
 const expressJson = () => express.json(); // for parsing application/json
 const expressUrlEncoded = express.urlencoded({ extended: true }); // for parsing application/x-www-form-urlencoded
@@ -25,6 +26,18 @@ const morganMiddleware = morgan(function (tokens, req, res) {
     ].join(' ');
 });
 
+const authorizationMiddleware = (req, res, next) => {
+    const token = req.header("Authorization");
+    if (!token) return res.status(401).json({ message: "Authorization header missing" });
+    try {
+        const decoded = jwt.verify(token, process.env.secretkey);
+        req.user = decoded.user;
+        next();
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     dbConnectionMiddleware,
     cors,
@@ -33,5 +46,6 @@ module.exports = {
     errorLogger,
     errorResponder,
     errorPath,
-    morganMiddleware
+    morganMiddleware,
+    authorizationMiddleware
 }
