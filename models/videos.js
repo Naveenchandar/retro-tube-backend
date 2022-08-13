@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const videosScheme = new mongoose.Schema({
+const videosSchema = new mongoose.Schema({
     alt: { type: String },
     title: { type: String, required: true },
     creator: { type: String },
@@ -15,6 +15,6 @@ const videosScheme = new mongoose.Schema({
     updatedOn: { type: String }
 }, { timestamps: true });
 
-const videosModel = mongoose.model('Videos', videosScheme);
+const videosModel = mongoose.model('Videos', videosSchema);
 
-module.exports = { videosModel, videosScheme };
+module.exports = { videosModel, videosSchema };

@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
-const { videosScheme } = require('./videos');
+const { videosSchema} = require('./videos');
 
-const playlistScheme = new mongoose.Schema({
+const playlistSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true }, // unique key is added to avoid duplicates
     postedOn: { type: String, default: Date.now() },
     updatedOn: { type: String },
-    videos: { type: [videosScheme] },
+    videos: { type: [videosSchema] },
+    user: { type: mongoose.Types.ObjectId, ref: 'users' }
 }, { timestamps: true })
 
-const playlistModel = mongoose.model('playlists', playlistScheme);
+const playlistModel = mongoose.model('playlists', playlistSchema);
 
-module.exports = { playlistModel }
+module.exports = { playlistModel, playlistSchema }
