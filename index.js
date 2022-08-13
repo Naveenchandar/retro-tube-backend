@@ -5,8 +5,10 @@ const dotenv = require('dotenv').config();
 const { dbInitialize } = require('./connection');
 const { videosModel } = require('./models/videos');
 const { playlistModel } = require('./models/playlist');
+const { userModel } = require('./models/users');
 const { videoRouters } = require('./routers/videos');
 const { playlistRouters } = require('./routers/playlists');
+const { usersRouter } = require('./routers/users');
 const {
     dbConnectionMiddleware,
     cors,
@@ -15,7 +17,8 @@ const {
     errorLogger,
     errorResponder,
     errorPath,
-    morganMiddleware
+    morganMiddleware,
+    authorizationMiddleware
 } = require('./middlewares');
 const {
     logInfo,
@@ -30,10 +33,12 @@ app.use(expressJson());
 app.use(expressUrlEncoded);
 app.use(dbConnectionMiddleware);
 app.use(morganMiddleware);
+app.use(authorizationMiddleware);
 
 
 app.use('/videos', videoRouters);
 app.use('/playlists', playlistRouters);
+app.use('/users', usersRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
