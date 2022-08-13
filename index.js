@@ -17,8 +17,7 @@ const {
     errorLogger,
     errorResponder,
     errorPath,
-    morganMiddleware,
-    authorizationMiddleware
+    morganMiddleware
 } = require('./middlewares');
 const {
     logInfo,
@@ -33,7 +32,6 @@ app.use(expressJson());
 app.use(expressUrlEncoded);
 app.use(dbConnectionMiddleware);
 app.use(morganMiddleware);
-app.use(authorizationMiddleware);
 
 
 app.use('/videos', videoRouters);

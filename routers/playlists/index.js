@@ -1,20 +1,21 @@
 const express = require('express');
 const { fetchAllPlaylists, addPlaylist, updatePlaylistsById, fetchPlaylistsById, fetchPlaylistsByUser } = require('./helper');
 const { fetchVideoById } = require('../videos/helper');
+const { authorizationMiddleware } = require('../../middlewares');
 
 const playlistRouters = express.Router();
 
 
 playlistRouters.route('/')
-    .get(fetchAllPlaylists)
+    .get(authorizationMiddleware, fetchAllPlaylists)
     .post(addPlaylist)
 
 playlistRouters.route('/:id')
-    .get(fetchPlaylistsById)
-    .post(updatePlaylistsById)
+    .get(authorizationMiddleware, fetchPlaylistsById)
+    .post(authorizationMiddleware, updatePlaylistsById)
 
 playlistRouters.route('/user/:id')
-    .get(fetchPlaylistsByUser)
+    .get(authorizationMiddleware, fetchPlaylistsByUser)
 
 
 module.exports = { playlistRouters };
